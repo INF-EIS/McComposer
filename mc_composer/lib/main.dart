@@ -52,41 +52,71 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(children: <Widget>[
-          Image.asset('assets/McDoLogo.png',
-              fit: BoxFit.cover, width: 25, height: 22),
-          const Padding(padding: EdgeInsets.all(3.0)),
-          Text(widget.title)
-        ]),
-        bottom: const TabBar(
-          tabs: [
-            Tab(text: "bread"),
-            Tab(text: "meat"),
-            Tab(text: "vegetables"),
-            Tab(text: "sauces"),
-            Tab(text: "extra"),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        children: [
-          const SizedBox.shrink(),
-          ListView(
-            children: [
-              ListItem(food: 'Cow Patty', price: 3.0, startingValue: 0,),
-              ListItem(food: 'Pork Cow Patty', price: 5.0, startingValue: 1,),
-              ListItem(food: 'Pork Patty', price: 4.0, startingValue: 0,),
-              ListItem(food: 'Chicken Breasts', price: 4.0, startingValue: 0,),
-              ListItem(food: 'Fried Chicken Breasts', price: 4.0, startingValue: 0,),
-              ListItem(food: '5 Chicken Nuggets', price: 4.0, startingValue: 0,),
+        appBar: AppBar(
+          title: Row(children: <Widget>[
+            Image.asset('assets/McDoLogo.png',
+                fit: BoxFit.cover, width: 25, height: 22),
+            const Padding(padding: EdgeInsets.all(3.0)),
+            Text(widget.title)
+          ]),
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: "bread"),
+              Tab(text: "meat"),
+              Tab(text: "vegetables"),
+              Tab(text: "sauces"),
+              Tab(text: "extra"),
             ],
           ),
-          const SizedBox.shrink(),
-          const SizedBox.shrink(),
-          const SizedBox.shrink(),
-        ],
-      ),
-    );
+        ),
+        body: Column(
+          children: [
+            Image.asset('assets/McDoLogo.png',
+                fit: BoxFit.cover, width: 100, height: 100),
+            Expanded(
+                child: TabBarView(
+              children: [
+                const SizedBox.shrink(),
+                ListView(
+                  children: const [
+                    ListItem(
+                      food: 'Cow Patty',
+                      price: 3.0,
+                      startingValue: 0,
+                    ),
+                    ListItem(
+                      food: 'Pork Cow Patty',
+                      price: 5.0,
+                      startingValue: 1,
+                    ),
+                    ListItem(
+                      food: 'Pork Patty',
+                      price: 4.0,
+                      startingValue: 0,
+                    ),
+                    ListItem(
+                      food: 'Chicken Breasts',
+                      price: 4.0,
+                      startingValue: 0,
+                    ),
+                    ListItem(
+                      food: 'Fried Chicken Breasts',
+                      price: 4.0,
+                      startingValue: 0,
+                    ),
+                    ListItem(
+                      food: '5 Chicken Nuggets',
+                      price: 4.0,
+                      startingValue: 0,
+                    ),
+                  ],
+                ),
+                const SizedBox.shrink(),
+                const SizedBox.shrink(),
+                const SizedBox.shrink(),
+              ],
+            )),
+          ],
+        ));
   }
 }
