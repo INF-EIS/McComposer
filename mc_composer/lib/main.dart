@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mc_composer/list_item.dart';
+import 'package:mc_composer/listitem.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,16 +70,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: TabBarView(
-        children: [ListView(
+        children: [
+          const SizedBox.shrink(),
+          ListView(
             children: [
-              ListItem(food: 'Seasoned Bun', price: 5.0),
-              Image.asset('assets/McDoLogo.png',
-                  fit: BoxFit.cover),
-              Image.asset('assets/McDoLogo.png',
-                  fit: BoxFit.cover),
+              ListItem(food: 'Cow Patty', price: 3.0, startingValue: 0,),
+              ListItem(food: 'Pork Cow Patty', price: 5.0, startingValue: 1,),
+              ListItem(food: 'Pork Patty', price: 4.0, startingValue: 0,),
+              ListItem(food: 'Chicken Breasts', price: 4.0, startingValue: 0,),
+              ListItem(food: 'Fried Chicken Breasts', price: 4.0, startingValue: 0,),
+              ListItem(food: '5 Chicken Nuggets', price: 4.0, startingValue: 0,),
             ],
           ),
-          const SizedBox.shrink(),
           const SizedBox.shrink(),
           const SizedBox.shrink(),
           const SizedBox.shrink(),
