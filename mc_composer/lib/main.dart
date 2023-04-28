@@ -50,6 +50,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<String> meatNames = [
+    'Beef Patty',
+    'Pork Beef Patty',
+    'Pork Patty',
+    'Chicken Breasts',
+    'Fried Chicken Breasts',
+    '5 Chicken Nuggets'
+  ];
+  final List<int> meatAmounts = [0, 1, 0, 0, 0, 0];
+
+  void getBurgerCount(String food, int count) {
+    setState(() {
+      int index = meatNames.indexOf(food);
+      meatAmounts[index] = count;
+    });
+    print(meatAmounts);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,42 +90,48 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            BurgerView(),
+            BurgerView(meatAmounts: meatAmounts),
             Expanded(
                 child: TabBarView(
               children: [
                 const SizedBox.shrink(),
                 ListView(
-                  children: const [
+                  children: [
                     ListItem(
-                      food: 'Beef Patty',
+                      food: meatNames[0],
                       price: 3.0,
                       startingValue: 0,
+                      onMeatSelected: getBurgerCount,
                     ),
                     ListItem(
-                      food: 'Pork Beef Patty',
+                      food: meatNames[1],
                       price: 5.0,
                       startingValue: 1,
+                      onMeatSelected: getBurgerCount,
                     ),
                     ListItem(
-                      food: 'Pork Patty',
+                      food: meatNames[2],
                       price: 4.0,
                       startingValue: 0,
+                      onMeatSelected: getBurgerCount,
                     ),
                     ListItem(
-                      food: 'Chicken Breasts',
+                      food: meatNames[3],
                       price: 4.0,
                       startingValue: 0,
+                      onMeatSelected: getBurgerCount,
                     ),
                     ListItem(
-                      food: 'Fried Chicken Breasts',
+                      food: meatNames[4],
                       price: 4.0,
                       startingValue: 0,
+                      onMeatSelected: getBurgerCount,
                     ),
                     ListItem(
-                      food: '5 Chicken Nuggets',
+                      food: meatNames[5],
                       price: 4.0,
                       startingValue: 0,
+                      onMeatSelected: getBurgerCount,
                     ),
                   ],
                 ),

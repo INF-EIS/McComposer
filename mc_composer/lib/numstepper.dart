@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class NumStepper extends StatefulWidget {
-  const NumStepper({super.key, required this.value, required this.price});
+  const NumStepper({super.key, required this.value, required this.price, required this.onCountChanged});
 
   final int value;
   final double price;
+  final Function(int) onCountChanged;
 
   @override
   State<NumStepper> createState() => _NumStepperState();
@@ -32,6 +33,7 @@ class _NumStepperState extends State<NumStepper> {
             onPressed: () => setState(() {
               final newValue = _currentValue - 1;
               _currentValue = newValue.clamp(0, 100);
+              widget.onCountChanged(_currentValue);
             }),
           ),
           Text(_currentValue.toString()),
@@ -40,6 +42,7 @@ class _NumStepperState extends State<NumStepper> {
             onPressed: () => setState(() {
               final newValue = _currentValue + 1;
               _currentValue = newValue.clamp(0, 100);
+              widget.onCountChanged(_currentValue);
             }),
           ),
         ],
