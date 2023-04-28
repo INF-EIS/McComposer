@@ -3,6 +3,23 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(const MyApp());
 }
+class Palette { 
+  static const MaterialColor mcDoRed = MaterialColor( 
+    0xFFe60001, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch. 
+    <int, Color>{ 
+      50: Color(0xffcf0001),//10% 
+      100: Color(0xffb80001),//20% 
+      200: Color(0xffb80001),//30% 
+      300: Color(0xff8a0001),//40% 
+      400: Color(0xff730001),//50% 
+      500: Color(0xff5c0000),//60% 
+      600: Color(0xff450000),//70% 
+      700: Color(0xff2e0000),//80% 
+      800: Color(0xff170000),//90% 
+      900: Color(0xff170000),//100% 
+    }, 
+  ); 
+} // you can define define int 500 as the default shade and add your lighter tints above and darker tints below.
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,7 +39,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.amber,
+        primarySwatch: Palette.mcDoRed,
       ),
       home: const MyHomePage(title: 'McComposer'),
     );
@@ -71,10 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Row(children: <Widget>[
+        Image.asset('assets/McDoLogo.png', fit: BoxFit.cover, width: 25, height: 20),
+        const Padding(padding: EdgeInsets.all(5.0)),
+        Text(widget.title)
+      ])),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
