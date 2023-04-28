@@ -54,8 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Row(children: <Widget>[
           Image.asset('assets/McDoLogo.png',
-              fit: BoxFit.cover, width: 25, height: 20),
-          const Padding(padding: EdgeInsets.all(5.0)),
+              fit: BoxFit.cover, width: 25, height: 22),
+          const Padding(padding: EdgeInsets.all(3.0)),
           Text(widget.title)
         ]),
         bottom: const TabBar(
@@ -70,7 +70,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: TabBarView(
         children: [
-          Center(child: Column()),
+          Center(
+              child: ListView(
+            children: [
+              
+              Image.asset('assets/McDoLogo.png',
+                  fit: BoxFit.cover),
+              Image.asset('assets/McDoLogo.png',
+                  fit: BoxFit.cover),
+            ],
+          )),
           const SizedBox.shrink(),
           const SizedBox.shrink(),
           const SizedBox.shrink(),
