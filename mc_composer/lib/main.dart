@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mc_composer/burgerview.dart';
 import 'package:mc_composer/listitem.dart';
 
 void main() {
@@ -71,8 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            Image.asset('assets/McDoLogo.png',
-                fit: BoxFit.cover, width: 100, height: 100),
+            BurgerView(),
             Expanded(
                 child: TabBarView(
               children: [
@@ -80,12 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ListView(
                   children: const [
                     ListItem(
-                      food: 'Cow Patty',
+                      food: 'Beef Patty',
                       price: 3.0,
                       startingValue: 0,
                     ),
                     ListItem(
-                      food: 'Pork Cow Patty',
+                      food: 'Pork Beef Patty',
                       price: 5.0,
                       startingValue: 1,
                     ),

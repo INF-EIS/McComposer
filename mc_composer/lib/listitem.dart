@@ -23,9 +23,9 @@ class _ListItemState extends State<ListItem> {
 
   String getPhoto() {
     switch(widget.food) {
-      case ("Cow Patty"):
-        return 'BeefPatty.jpeg';
-      case ("Pork Cow Patty"):
+      case ("Beef Patty"):
+        return 'BeefPatty1.png';
+      case ("Pork Beef Patty"):
         return 'PorkCowPatty.jpeg';
       case ("Pork Patty"):
         return 'PorkPatty.jpeg';
