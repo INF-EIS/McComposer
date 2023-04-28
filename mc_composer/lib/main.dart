@@ -25,12 +25,12 @@ class Palette {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'McComposer',
       theme: ThemeData(
-      primarySwatch: Palette.mcDoRed,
+        primarySwatch: Palette.mcDoRed,
       ),
       home: const DefaultTabController(
           length: 5, child: MyHomePage(title: 'McComposer')),
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-    
+
   final String title;
 
   @override
@@ -48,14 +48,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-    _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,20 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: TabBarView(
         children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ],
-            ),
-          ),
+          Center(child: Column()),
           const SizedBox.shrink(),
           const SizedBox.shrink(),
           const SizedBox.shrink(),
