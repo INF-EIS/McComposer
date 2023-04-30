@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'Fried Chicken Breasts',
     '5 Chicken Nuggets'
   ];
+  final List<double> meatPrices = [3, 5, 4, 4, 4, 4];
   final List<int> meatAmounts = [0, 1, 0, 0, 0, 0];
 
   void getBurgerCount(String food, int count) {
@@ -92,54 +93,83 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             BurgerView(meatAmounts: meatAmounts),
             Expanded(
+                flex: 2,
                 child: TabBarView(
-              children: [
-                const SizedBox.shrink(),
-                ListView(
                   children: [
-                    ListItem(
-                      food: meatNames[0],
-                      price: 3.0,
-                      startingValue: 0,
-                      onMeatSelected: getBurgerCount,
-                    ),
-                    ListItem(
-                      food: meatNames[1],
-                      price: 5.0,
-                      startingValue: 1,
-                      onMeatSelected: getBurgerCount,
-                    ),
-                    ListItem(
-                      food: meatNames[2],
-                      price: 4.0,
-                      startingValue: 0,
-                      onMeatSelected: getBurgerCount,
-                    ),
-                    ListItem(
-                      food: meatNames[3],
-                      price: 4.0,
-                      startingValue: 0,
-                      onMeatSelected: getBurgerCount,
-                    ),
-                    ListItem(
-                      food: meatNames[4],
-                      price: 4.0,
-                      startingValue: 0,
-                      onMeatSelected: getBurgerCount,
-                    ),
-                    ListItem(
-                      food: meatNames[5],
-                      price: 4.0,
-                      startingValue: 0,
-                      onMeatSelected: getBurgerCount,
-                    ),
+                    const SizedBox.shrink(),
+                    ListView.builder(
+                        itemCount: meatNames.length,
+                        itemBuilder: (ctx, i) {
+                          return ListItem(
+                            food: meatNames[i],
+                            price: meatPrices[i],
+                            startingValue: meatAmounts[i],
+                            onMeatSelected: getBurgerCount,
+                          );
+                        }),
+                    const SizedBox.shrink(),
+                    const SizedBox.shrink(),
+                    const SizedBox.shrink(),
                   ],
-                ),
-                const SizedBox.shrink(),
-                const SizedBox.shrink(),
-                const SizedBox.shrink(),
+                )),
+            ButtonBar(
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                                color: Colors.amber,
+                                child: Center(
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                            padding: const EdgeInsets.all(20),
+                                            child: Row(
+                                              children: [
+                                                const Text(
+                                                  'Winkelmandje:',
+                                                  style:
+                                                      TextStyle(fontSize: 40),
+                                                ),
+                                                const Spacer(),
+                                                CloseButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                ),
+                                              ],
+                                            )),
+                                        Expanded(
+                                          child: ListView.builder(
+                                              itemCount: meatNames.length,
+                                              itemBuilder: (ctx, i) {
+                                                if (meatAmounts[i] > 0) {
+                                                  return ListItem(
+                                                    food: meatNames[i],
+                                                    price: meatPrices[i],
+                                                    startingValue:
+                                                        meatAmounts[i],
+                                                    onMeatSelected:
+                                                        getBurgerCount,
+                                                  );
+                                                } else {
+                                                  return const SizedBox.shrink();
+                                                }
+                                              }),
+                                        ),
+                                      ]),
+                                ));
+                          });
+                    },
+                    child: const Text('Toon Winkelmandje')),
+                ElevatedButton(
+                    onPressed: () => {}, child: const Text('Afronden'))
               ],
-            )),
+            )
           ],
         ));
   }

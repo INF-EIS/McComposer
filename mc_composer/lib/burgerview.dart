@@ -6,37 +6,52 @@ class BurgerView extends StatefulWidget {
 
   final List<int> meatAmounts;
 
+  // List<int> getMeatAmounts() {
+  //   return meatAmounts;
+  // }
+
+  // int getMeatAmount(int index) {
+  //   return meatAmounts[index];
+  // }
+
   @override
   State<BurgerView> createState() => _BurgerViewState();
 }
 
 class _BurgerViewState extends State<BurgerView> {
   List<Widget> meats = [];
+  final double sidePadding = 200.0;
   void initializeMeats() {
     meats = [
-      Image.asset('BurgerTop.jpeg', fit: BoxFit.cover),
-      Image.asset('BurgerBottom.jpeg', fit: BoxFit.cover)
+      Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(sidePadding, 0, sidePadding, 0),
+          child: Image.asset('BurgerTop.jpeg', fit: BoxFit.cover)),
+      Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(sidePadding, 0, sidePadding, 0),
+          child: Image.asset('BurgerBottom.jpeg', fit: BoxFit.cover))
     ];
   }
 
   @override
   void initState() {
     super.initState();
-    createMeats();
+    addMeatImages();
   }
 
   @override
   void didUpdateWidget(covariant BurgerView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    createMeats();
+    addMeatImages();
   }
 
-  void createMeats() {
+  void addMeatImages() {
     initializeMeats();
     int length = widget.meatAmounts.length;
     for (int i = 0; i < length; i++) {
       for (int j = 0; j < widget.meatAmounts[i]; j++) {
-        meats.insert(1, Image.asset(getMeatImageI(i), width: 350));
+        meats.insert(1, Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(sidePadding, 0, sidePadding, 0),
+          child: Image.asset(getMeatImageI(i), fit: BoxFit.cover)));
       }
     }
   }
@@ -44,7 +59,7 @@ class _BurgerViewState extends State<BurgerView> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Column(
+        child: ListView(
       children: meats,
     ));
   }
