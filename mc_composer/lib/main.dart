@@ -50,6 +50,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late BurgerView bv;
+
+  final List<String> breadNames = ['Bun', 'Toasted Bun', 'Brown Bun'];
+  final List<double> breadPrices = [3, 5, 4];
+  List<int> breadAmounts = [1, 0, 0];
+
   final List<String> meatNames = [
     'Beef Patty',
     'Pork Beef Patty',
@@ -59,14 +65,40 @@ class _MyHomePageState extends State<MyHomePage> {
     '5 Chicken Nuggets'
   ];
   final List<double> meatPrices = [3, 5, 4, 4, 4, 4];
-  final List<int> meatAmounts = [0, 1, 0, 0, 0, 0];
+  List<int> meatAmounts = [0, 1, 0, 0, 0, 0];
 
-  void getBurgerCount(String food, int count) {
+  @override
+  void initState() {
+    super.initState();
+    bv = BurgerView(breadAmounts: breadAmounts, meatAmounts: meatAmounts);
+  }
+
+  void getCount(String food, int count) {
+    if (breadNames.indexOf(food) != -1) {
+      getBreadCount(food, count);
+      setState(() {
+        breadAmounts = bv.getBreads();
+      });
+    } else {
+      getMeatCount(food, count);
+      setState(() {
+        meatAmounts = bv.getMeats();
+      });
+    }
+  }
+
+  void getBreadCount(String bread, int count) {
     setState(() {
-      int index = meatNames.indexOf(food);
+      int index = breadNames.indexOf(bread);
+      breadAmounts[index] = count;
+    });
+  }
+
+  void getMeatCount(String meat, int count) {
+    setState(() {
+      int index = meatNames.indexOf(meat);
       meatAmounts[index] = count;
     });
-    print(meatAmounts);
   }
 
   @override
@@ -91,27 +123,38 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            BurgerView(meatAmounts: meatAmounts),
+            BurgerView(breadAmounts: breadAmounts, meatAmounts: meatAmounts),
             Expanded(
-                flex: 2,
                 child: TabBarView(
-                  children: [
-                    const SizedBox.shrink(),
-                    ListView.builder(
-                        itemCount: meatNames.length,
-                        itemBuilder: (ctx, i) {
-                          return ListItem(
-                            food: meatNames[i],
-                            price: meatPrices[i],
-                            startingValue: meatAmounts[i],
-                            onMeatSelected: getBurgerCount,
-                          );
-                        }),
-                    const SizedBox.shrink(),
-                    const SizedBox.shrink(),
-                    const SizedBox.shrink(),
-                  ],
-                )),
+              children: [
+                // Breads
+                ListView.builder(
+                    itemCount: breadNames.length,
+                    itemBuilder: (ctx, i) {
+                      return ListItem(
+                        food: breadNames[i],
+                        isTop: null,
+                        price: breadPrices[i],
+                        startingValue: breadAmounts[i],
+                        onMeatSelected: getBreadCount,
+                      );
+                    }),
+                // Meats
+                ListView.builder(
+                    itemCount: meatNames.length,
+                    itemBuilder: (ctx, i) {
+                      return ListItem(
+                        food: meatNames[i],
+                        price: meatPrices[i],
+                        startingValue: meatAmounts[i],
+                        onMeatSelected: getMeatCount,
+                      );
+                    }),
+                const SizedBox.shrink(),
+                const SizedBox.shrink(),
+                const SizedBox.shrink(),
+              ],
+            )),
             ButtonBar(
               children: [
                 ElevatedButton(
@@ -145,19 +188,25 @@ class _MyHomePageState extends State<MyHomePage> {
                                             )),
                                         Expanded(
                                           child: ListView.builder(
-                                              itemCount: meatNames.length,
+                                              itemCount: breadNames.length +
+                                                  meatNames.length,
                                               itemBuilder: (ctx, i) {
-                                                if (meatAmounts[i] > 0) {
+                                                List<String> names =
+                                                    breadNames + meatNames;
+                                                List<double> prices =
+                                                    breadPrices + meatPrices;
+                                                List<int> amounts =
+                                                    breadAmounts + meatAmounts;
+                                                if (amounts[i] > 0) {
                                                   return ListItem(
-                                                    food: meatNames[i],
-                                                    price: meatPrices[i],
-                                                    startingValue:
-                                                        meatAmounts[i],
-                                                    onMeatSelected:
-                                                        getBurgerCount,
+                                                    food: names[i],
+                                                    price: prices[i],
+                                                    startingValue: amounts[i],
+                                                    onMeatSelected: getCount,
                                                   );
                                                 } else {
-                                                  return const SizedBox.shrink();
+                                                  return const SizedBox
+                                                      .shrink();
                                                 }
                                               }),
                                         ),
