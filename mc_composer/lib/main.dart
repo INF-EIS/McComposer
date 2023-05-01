@@ -71,19 +71,31 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<double> vegetablePrices = [3, 5, 4];
   List<int> vegetableAmounts = [1, 0, 0];
 
+  final List<String> sauceNames = ['Ketchup', 'Mayonaise', 'BBQ'];
+  final List<double> saucePrices = [0.8, 0.8, 0.8];
+  List<int> sauceAmounts = [0, 0, 0];
+
+  final List<String> extraNames = ['Cheddar', 'Bicky Onions'];
+  final List<double> extraPrices = [1, 1];
+  List<int> extraAmounts = [0, 0];
+
   @override
   void initState() {
     super.initState();
-    bv = BurgerView(breadAmounts: breadAmounts, foodAmounts: meatAmounts);
+    bv = BurgerView(breadAmounts: breadAmounts, foodAmounts: meatAmounts + vegetableAmounts + sauceAmounts + extraAmounts);
   }
 
   void getCount(String food, int count) {
-    if (breadNames.indexOf(food) != -1) {
+    if (breadNames.contains(food)) {
       getBreadCount(food, count);
-    } else if (meatNames.indexOf(food) != -1) {
+    } else if (meatNames.contains(food)) {
       getMeatCount(food, count);
-    } else {
+    } else if (vegetableNames.contains(food)) {
       getVegetableCount(food, count);
+    } else if (sauceNames.contains(food)) {
+      getSauceCount(food, count);
+    } else {
+      getExtraCount(food, count);
     }
   }
 
@@ -105,6 +117,20 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       int index = vegetableNames.indexOf(vegetable);
       vegetableAmounts[index] = count;
+    });
+  }
+
+  void getSauceCount(String sauce, int count) {
+    setState(() {
+      int index = sauceNames.indexOf(sauce);
+      sauceAmounts[index] = count;
+    });
+  }
+
+  void getExtraCount(String extra, int count) {
+    setState(() {
+      int index = extraNames.indexOf(extra);
+      extraAmounts[index] = count;
     });
   }
 
@@ -135,11 +161,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           )),
                       Expanded(
                         child: ListView.builder(
-                            itemCount: breadNames.length + meatNames.length + vegetableNames.length,
+                            itemCount: breadNames.length + meatNames.length + vegetableNames.length + sauceNames.length + extraNames.length,
                             itemBuilder: (ctx, i) {
-                              List<String> names = breadNames + meatNames + vegetableNames;
-                              List<double> prices = breadPrices + meatPrices + vegetablePrices;
-                              List<int> amounts = breadAmounts + meatAmounts + vegetableAmounts;
+                              List<String> names = breadNames + meatNames + vegetableNames + sauceNames + extraNames;
+                              List<double> prices = breadPrices + meatPrices + vegetablePrices + saucePrices + extraPrices;
+                              List<int> amounts = breadAmounts + meatAmounts + vegetableAmounts + sauceAmounts + extraAmounts;
                               if (amounts[i] > 0) {
                                 return ListItem(
                                   food: names[i],
@@ -179,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            BurgerView(breadAmounts: breadAmounts, foodAmounts: meatAmounts + vegetableAmounts),
+            BurgerView(breadAmounts: breadAmounts, foodAmounts: meatAmounts + vegetableAmounts + sauceAmounts + extraAmounts),
             Expanded(
                 child: TabBarView(
               children: [
@@ -217,8 +243,28 @@ class _MyHomePageState extends State<MyHomePage> {
                         onMeatSelected: getVegetableCount,
                       );
                     }),
-                const SizedBox.shrink(),
-                const SizedBox.shrink(),
+                // Vegetables
+                ListView.builder(
+                    itemCount: sauceNames.length,
+                    itemBuilder: (ctx, i) {
+                      return ListItem(
+                        food: sauceNames[i],
+                        price: saucePrices[i],
+                        startingValue: sauceAmounts[i],
+                        onMeatSelected: getSauceCount,
+                      );
+                    }),
+                // Vegetables
+                ListView.builder(
+                    itemCount: extraNames.length,
+                    itemBuilder: (ctx, i) {
+                      return ListItem(
+                        food: extraNames[i],
+                        price: extraPrices[i],
+                        startingValue: extraAmounts[i],
+                        onMeatSelected: getExtraCount,
+                      );
+                    }),
               ],
             )),
             ButtonBar(

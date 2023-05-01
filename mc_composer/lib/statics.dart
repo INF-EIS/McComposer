@@ -19,6 +19,18 @@ String getImage(String food, bool? isTop) {
     return result;
   }
 
+  //CHECK SAUCE
+  result = getSauceImage(food);
+  if (result != mcdo) {
+    return result;
+  }
+
+  //CHECK EXTRA
+  result = getExtraImage(food);
+  if (result != mcdo) {
+    return result;
+  }
+
   //DEFAULT
   return mcdo;
 }
@@ -35,6 +47,20 @@ String getImageI(int food) {
 
   //CHECK VEGETABLE
   result = getVegetableImageI(food - meatSize);
+  if (result != mcdo) {
+    return result;
+  }
+  int vegetableSize = 3;
+
+  //CHECK SAUCE
+  result = getSauceImageI(food - meatSize - vegetableSize);
+  if (result != mcdo) {
+    return result;
+  }
+  int sauceSize = 3;
+
+  //CHECK EXTRA
+  result = getExtraImageI(food - meatSize - vegetableSize - sauceSize);
   if (result != mcdo) {
     return result;
   }
@@ -184,3 +210,52 @@ String getVegetableImageI(int vegetable) {
       return 'McDoLogo.png';
   }
 }
+
+String getSauceImage(String sauce) {
+  switch (sauce) {
+    case ("Ketchup"):
+      return 'Ketchup.png';
+    case ("Mayonaise"):
+      return 'Mayonaise.png';
+    case ("BBQ"):
+      return 'BBQ.png';
+    default:
+      return 'McDoLogo.png';
+  }
+}
+
+String getSauceImageI(int sauce) {
+  switch (sauce) {
+    case (0):
+      return 'Ketchup.png';
+    case (1):
+      return 'Mayonaise.png';
+    case (2):
+      return 'BBQ.png';
+    default:
+      return 'McDoLogo.png';
+  }
+}
+
+String getExtraImage(String extra) {
+  switch (extra) {
+    case ("Cheddar"):
+      return 'Cheddar.jpeg';
+    case ("Bicky Onions"):
+      return 'BickyOnions.jpeg';
+    default:
+      return 'McDoLogo.png';
+  }
+}
+
+String getExtraImageI(int extra) {
+  switch (extra) {
+    case (0):
+      return 'Cheddar.jpeg';
+    case (1):
+      return 'BickyOnions.jpeg';
+    default:
+      return 'McDoLogo.png';
+  }
+}
+

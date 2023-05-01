@@ -29,16 +29,16 @@ class _NumStepperState extends State<NumStepper> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-            icon: Icon(Icons.remove),
+            icon: const Icon(Icons.remove),
             onPressed: () => setState(() {
               final newValue = _currentValue - 1;
               _currentValue = newValue.clamp(0, 100);
               widget.onCountChanged(_currentValue);
             }),
           ),
-          Text(_currentValue.toString()),
+          Text(_currentValue.toStringAsFixed(2)),
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add), 
             onPressed: () => setState(() {
               final newValue = _currentValue + 1;
               _currentValue = newValue.clamp(0, 100);
@@ -47,7 +47,7 @@ class _NumStepperState extends State<NumStepper> {
           ),
         ],
       ),
-      Text('\$${_currentValue * widget.price}')
+      Text((_currentValue * widget.price).toStringAsFixed(2))
     ]);
   }
 }

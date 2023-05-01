@@ -56,7 +56,7 @@ class _BurgerViewState extends State<BurgerView> {
     setPadding();
     foodStack = [];
     addBuns(true);
-    addMeatImages();
+    addFoodImages();
     addBuns(false);
   }
 
@@ -79,7 +79,7 @@ class _BurgerViewState extends State<BurgerView> {
     }
   }
 
-  void addMeatImages() {
+  void addFoodImages() {
     int length = widget.foodAmounts.length;
     for (int i = 0; i < length; i++) {
       for (int j = 0; j < widget.foodAmounts[i]; j++) {
