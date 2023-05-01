@@ -67,23 +67,23 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<double> meatPrices = [3, 5, 4, 4, 4, 4];
   List<int> meatAmounts = [0, 1, 0, 0, 0, 0];
 
+  final List<String> vegetableNames = ['Lettuce', 'Tomato', 'Pickles'];
+  final List<double> vegetablePrices = [3, 5, 4];
+  List<int> vegetableAmounts = [1, 0, 0];
+
   @override
   void initState() {
     super.initState();
-    bv = BurgerView(breadAmounts: breadAmounts, meatAmounts: meatAmounts);
+    bv = BurgerView(breadAmounts: breadAmounts, foodAmounts: meatAmounts);
   }
 
   void getCount(String food, int count) {
     if (breadNames.indexOf(food) != -1) {
       getBreadCount(food, count);
-      setState(() {
-        breadAmounts = bv.getBreads();
-      });
-    } else {
+    } else if (meatNames.indexOf(food) != -1) {
       getMeatCount(food, count);
-      setState(() {
-        meatAmounts = bv.getMeats();
-      });
+    } else {
+      getVegetableCount(food, count);
     }
   }
 
@@ -101,9 +101,64 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void getVegetableCount(String vegetable, int count) {
+    setState(() {
+      int index = vegetableNames.indexOf(vegetable);
+      vegetableAmounts[index] = count;
+    });
+  }
+
+  createModal() {
+    return showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              color: Colors.amber,
+              child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Basket:',
+                                style: TextStyle(fontSize: 40),
+                              ),
+                              const Spacer(),
+                              CloseButton(
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          )),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: breadNames.length + meatNames.length + vegetableNames.length,
+                            itemBuilder: (ctx, i) {
+                              List<String> names = breadNames + meatNames + vegetableNames;
+                              List<double> prices = breadPrices + meatPrices + vegetablePrices;
+                              List<int> amounts = breadAmounts + meatAmounts + vegetableAmounts;
+                              if (amounts[i] > 0) {
+                                return ListItem(
+                                  food: names[i],
+                                  price: prices[i],
+                                  startingValue: amounts[i],
+                                  onMeatSelected: getCount,
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            }),
+                      ),
+                    ]),
+              ));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: AppBar(
           title: Row(children: <Widget>[
@@ -124,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            BurgerView(breadAmounts: breadAmounts, meatAmounts: meatAmounts),
+            BurgerView(breadAmounts: breadAmounts, foodAmounts: meatAmounts + vegetableAmounts),
             Expanded(
                 child: TabBarView(
               children: [
@@ -151,7 +206,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         onMeatSelected: getMeatCount,
                       );
                     }),
-                const SizedBox.shrink(),
+                // Vegetables
+                ListView.builder(
+                    itemCount: vegetableNames.length,
+                    itemBuilder: (ctx, i) {
+                      return ListItem(
+                        food: vegetableNames[i],
+                        price: vegetablePrices[i],
+                        startingValue: vegetableAmounts[i],
+                        onMeatSelected: getVegetableCount,
+                      );
+                    }),
                 const SizedBox.shrink(),
                 const SizedBox.shrink(),
               ],
@@ -160,64 +225,10 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 ElevatedButton(
                     onPressed: () {
-                      showModalBottomSheet<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                                color: Colors.amber,
-                                child: Center(
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Padding(
-                                            padding: const EdgeInsets.all(20),
-                                            child: Row(
-                                              children: [
-                                                const Text(
-                                                  'Winkelmandje:',
-                                                  style:
-                                                      TextStyle(fontSize: 40),
-                                                ),
-                                                const Spacer(),
-                                                CloseButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(context),
-                                                ),
-                                              ],
-                                            )),
-                                        Expanded(
-                                          child: ListView.builder(
-                                              itemCount: breadNames.length +
-                                                  meatNames.length,
-                                              itemBuilder: (ctx, i) {
-                                                List<String> names =
-                                                    breadNames + meatNames;
-                                                List<double> prices =
-                                                    breadPrices + meatPrices;
-                                                List<int> amounts =
-                                                    breadAmounts + meatAmounts;
-                                                if (amounts[i] > 0) {
-                                                  return ListItem(
-                                                    food: names[i],
-                                                    price: prices[i],
-                                                    startingValue: amounts[i],
-                                                    onMeatSelected: getCount,
-                                                  );
-                                                } else {
-                                                  return const SizedBox
-                                                      .shrink();
-                                                }
-                                              }),
-                                        ),
-                                      ]),
-                                ));
-                          });
+                      createModal();
                     },
-                    child: const Text('Toon Winkelmandje')),
-                ElevatedButton(
-                    onPressed: () => {}, child: const Text('Afronden'))
+                    child: const Text('Show Basket')),
+                ElevatedButton(onPressed: () => {}, child: const Text('Finish'))
               ],
             )
           ],

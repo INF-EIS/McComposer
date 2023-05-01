@@ -13,6 +13,32 @@ String getImage(String food, bool? isTop) {
     return result;
   }
 
+  //CHECK VEGETABLE
+  result = getVegetableImage(food);
+  if (result != mcdo) {
+    return result;
+  }
+
+  //DEFAULT
+  return mcdo;
+}
+
+String getImageI(int food) {
+  String mcdo = 'McDoLogo.png';
+
+  //CHECK MEAT
+  String result = getMeatImageI(food);
+  if (result != mcdo) {
+    return result;
+  }
+  int meatSize = 6;
+
+  //CHECK VEGETABLE
+  result = getVegetableImageI(food - meatSize);
+  if (result != mcdo) {
+    return result;
+  }
+
   //DEFAULT
   return mcdo;
 }
@@ -128,6 +154,32 @@ String getMeatImageI(int meat) {
       return 'FriedChickenBreasts.png';
     case (5):
       return 'ChickenNuggets.png';
+    default:
+      return 'McDoLogo.png';
+  }
+}
+
+String getVegetableImage(String vegetable) {
+  switch (vegetable) {
+    case ("Lettuce"):
+      return 'Lettuce.png';
+    case ("Tomato"):
+      return 'Tomato.jpeg';
+    case ("Pickles"):
+      return 'Pickles.jpeg';
+    default:
+      return 'McDoLogo.png';
+  }
+}
+
+String getVegetableImageI(int vegetable) {
+  switch (vegetable) {
+    case (0):
+      return 'Lettuce.png';
+    case (1):
+      return 'Tomato.jpeg';
+    case (2):
+      return 'Pickles.jpeg';
     default:
       return 'McDoLogo.png';
   }
