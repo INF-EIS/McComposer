@@ -31,13 +31,19 @@ class _ListItemState extends State<ListItem> {
   }
 
   @override
+  void didUpdateWidget(covariant ListItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _currentValue = widget.startingValue;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
         child: Row(children: [
       Padding(
           padding: const EdgeInsets.all(20.0),
           child: Image.asset(getImage(widget.food, widget.isTop),
-              width: 200, height: 200)),
+              width: 100, height: 100)),
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
           widget.food,

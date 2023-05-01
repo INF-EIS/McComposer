@@ -82,8 +82,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    bv = BurgerView(breadAmounts: breadAmounts, foodAmounts: meatAmounts + vegetableAmounts + sauceAmounts + extraAmounts);
+    bv = BurgerView(
+        breadAmounts: breadAmounts,
+        foodAmounts:
+            meatAmounts + vegetableAmounts + sauceAmounts + extraAmounts);
   }
+
+  @override
+  void didUpdateWidget(covariant MyHomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    
+  }
+
+  double totalPrice = 0;
 
   void getCount(String food, int count) {
     if (breadNames.contains(food)) {
@@ -104,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
       int index = breadNames.indexOf(bread);
       breadAmounts[index] = count;
     });
+    calcTotalPrice();
   }
 
   void getMeatCount(String meat, int count) {
@@ -111,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
       int index = meatNames.indexOf(meat);
       meatAmounts[index] = count;
     });
+    calcTotalPrice();
   }
 
   void getVegetableCount(String vegetable, int count) {
@@ -118,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
       int index = vegetableNames.indexOf(vegetable);
       vegetableAmounts[index] = count;
     });
+    calcTotalPrice();
   }
 
   void getSauceCount(String sauce, int count) {
@@ -125,6 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
       int index = sauceNames.indexOf(sauce);
       sauceAmounts[index] = count;
     });
+    calcTotalPrice();
   }
 
   void getExtraCount(String extra, int count) {
@@ -132,6 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
       int index = extraNames.indexOf(extra);
       extraAmounts[index] = count;
     });
+    calcTotalPrice();
   }
 
   createModal() {
@@ -159,13 +175,31 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ],
                           )),
+                      Text('Price: \$${totalPrice.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 20)),
                       Expanded(
                         child: ListView.builder(
-                            itemCount: breadNames.length + meatNames.length + vegetableNames.length + sauceNames.length + extraNames.length,
+                            itemCount: breadNames.length +
+                                meatNames.length +
+                                vegetableNames.length +
+                                sauceNames.length +
+                                extraNames.length,
                             itemBuilder: (ctx, i) {
-                              List<String> names = breadNames + meatNames + vegetableNames + sauceNames + extraNames;
-                              List<double> prices = breadPrices + meatPrices + vegetablePrices + saucePrices + extraPrices;
-                              List<int> amounts = breadAmounts + meatAmounts + vegetableAmounts + sauceAmounts + extraAmounts;
+                              List<String> names = breadNames +
+                                  meatNames +
+                                  vegetableNames +
+                                  sauceNames +
+                                  extraNames;
+                              List<double> prices = breadPrices +
+                                  meatPrices +
+                                  vegetablePrices +
+                                  saucePrices +
+                                  extraPrices;
+                              List<int> amounts = breadAmounts +
+                                  meatAmounts +
+                                  vegetableAmounts +
+                                  sauceAmounts +
+                                  extraAmounts;
                               if (amounts[i] > 0) {
                                 return ListItem(
                                   food: names[i],
@@ -181,6 +215,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     ]),
               ));
         });
+  }
+
+  void calcTotalPrice() {
+    totalPrice = 0;
+    List<double> prices =
+        breadPrices + meatPrices + vegetablePrices + saucePrices + extraPrices;
+    List<int> amounts = breadAmounts +
+        meatAmounts +
+        vegetableAmounts +
+        sauceAmounts +
+        extraAmounts;
+    for (int i = 0; i < amounts.length; i++) {
+      setState(() {
+        totalPrice += amounts[i] * prices[i];
+      });
+    }
   }
 
   @override
@@ -205,7 +255,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            BurgerView(breadAmounts: breadAmounts, foodAmounts: meatAmounts + vegetableAmounts + sauceAmounts + extraAmounts),
+            BurgerView(
+                breadAmounts: breadAmounts,
+                foodAmounts: meatAmounts +
+                    vegetableAmounts +
+                    sauceAmounts +
+                    extraAmounts),
             Expanded(
                 child: TabBarView(
               children: [
