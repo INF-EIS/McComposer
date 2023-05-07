@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mc_composer/burgerview.dart';
+import 'package:mc_composer/draggingListItem.dart';
 import 'package:mc_composer/listitem.dart';
 
 void main() {
@@ -91,7 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void didUpdateWidget(covariant MyHomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    
   }
 
   double totalPrice = 0;
@@ -268,12 +268,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 ListView.builder(
                     itemCount: breadNames.length,
                     itemBuilder: (ctx, i) {
-                      return ListItem(
-                        food: breadNames[i],
-                        isTop: null,
-                        price: breadPrices[i],
-                        startingValue: breadAmounts[i],
-                        onMeatSelected: getBreadCount,
+                      return LongPressDraggable<ListItem>(
+                        feedback: DraggingListItem(
+                          dragKey: GlobalKey(),
+                          food: breadNames[i],
+                          isTop: null,
+                        ),
+                        child: ListItem(
+                          food: breadNames[i],
+                          isTop: null,
+                          price: breadPrices[i],
+                          startingValue: breadAmounts[i],
+                          onMeatSelected: getBreadCount,
+                        ),
                       );
                     }),
                 // Meats
