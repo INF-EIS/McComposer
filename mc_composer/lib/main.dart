@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mc_composer/burgerview.dart';
-import 'package:mc_composer/draggingListItem.dart';
 import 'package:mc_composer/listitem.dart';
 import 'drag&drop.dart';
 
@@ -306,19 +305,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ListView.builder(
                     itemCount: breadNames.length,
                     itemBuilder: (ctx, i) {
-                      return LongPressDraggable<ListItem>(
-                        feedback: DraggingListItem(
-                          dragKey: GlobalKey(),
-                          food: breadNames[i],
-                          isTop: null,
-                        ),
-                        child: ListItem(
-                          food: breadNames[i],
-                          isTop: null,
-                          price: breadPrices[i],
-                          startingValue: breadAmounts[i],
-                          onMeatSelected: getBreadCount,
-                        ),
+                      return ListItem(
+                        food: breadNames[i],
+                        isTop: null,
+                        price: breadPrices[i],
+                        startingValue: breadAmounts[i],
+                        onMeatSelected: getBreadCount,
                       );
                     }),
                 // Meats
