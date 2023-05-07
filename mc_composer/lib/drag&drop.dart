@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mc_composer/burgerview.dart';
 import 'package:mc_composer/listitem.dart';
 
+import 'dragginglistitem.dart';
+
 class DragdropPage extends StatefulWidget {
   const DragdropPage({super.key, required this.title});
 
@@ -229,56 +231,100 @@ class _DragdropPageState extends State<DragdropPage> {
                 ListView.builder(
                     itemCount: breadNames.length,
                     itemBuilder: (ctx, i) {
-                      return ListItem(
-                        food: breadNames[i],
-                        isTop: null,
-                        price: breadPrices[i],
-                        startingValue: breadAmounts[i],
-                        onMeatSelected: getBreadCount,
+                      return Draggable<ListItem>(
+                        dragAnchorStrategy: pointerDragAnchorStrategy,
+                        feedback: DraggingListItem(
+                          dragKey: GlobalKey(),
+                          food: breadNames[i],
+                          isTop: null,
+                        ),
+                        child: ListItem(
+                          food: breadNames[i],
+                          isTop: null,
+                          price: breadPrices[i],
+                          startingValue: breadAmounts[i],
+                          onMeatSelected: getBreadCount,
+                        ),
                       );
                     }),
                 // Meats
                 ListView.builder(
                     itemCount: meatNames.length,
                     itemBuilder: (ctx, i) {
-                      return ListItem(
-                        food: meatNames[i],
-                        price: meatPrices[i],
-                        startingValue: meatAmounts[i],
-                        onMeatSelected: getMeatCount,
+                      return Draggable<ListItem>(
+                        dragAnchorStrategy: pointerDragAnchorStrategy,
+                        feedback: DraggingListItem(
+                          dragKey: GlobalKey(),
+                          food: meatNames[i],
+                          isTop: null,
+                        ),
+                        child: ListItem(
+                          food: meatNames[i],
+                          isTop: null,
+                          price: meatPrices[i],
+                          startingValue: meatAmounts[i],
+                          onMeatSelected: getMeatCount,
+                        ),
                       );
                     }),
                 // Vegetables
                 ListView.builder(
                     itemCount: vegetableNames.length,
                     itemBuilder: (ctx, i) {
-                      return ListItem(
-                        food: vegetableNames[i],
-                        price: vegetablePrices[i],
-                        startingValue: vegetableAmounts[i],
-                        onMeatSelected: getVegetableCount,
+                      return Draggable<ListItem>(
+                        dragAnchorStrategy: pointerDragAnchorStrategy,
+                        feedback: DraggingListItem(
+                          dragKey: GlobalKey(),
+                          food: vegetableNames[i],
+                          isTop: null,
+                        ),
+                        child: ListItem(
+                          food: vegetableNames[i],
+                          isTop: null,
+                          price: vegetablePrices[i],
+                          startingValue: vegetableAmounts[i],
+                          onMeatSelected: getVegetableCount,
+                        ),
                       );
                     }),
                 // Vegetables
                 ListView.builder(
                     itemCount: sauceNames.length,
                     itemBuilder: (ctx, i) {
-                      return ListItem(
-                        food: sauceNames[i],
-                        price: saucePrices[i],
-                        startingValue: sauceAmounts[i],
-                        onMeatSelected: getSauceCount,
+                      return Draggable<ListItem>(
+                        dragAnchorStrategy: pointerDragAnchorStrategy,
+                        feedback: DraggingListItem(
+                          dragKey: GlobalKey(),
+                          food: sauceNames[i],
+                          isTop: null,
+                        ),
+                        child: ListItem(
+                          food: sauceNames[i],
+                          isTop: null,
+                          price: saucePrices[i],
+                          startingValue: sauceAmounts[i],
+                          onMeatSelected: getSauceCount,
+                        ),
                       );
                     }),
                 // Vegetables
                 ListView.builder(
                     itemCount: extraNames.length,
                     itemBuilder: (ctx, i) {
-                      return ListItem(
-                        food: extraNames[i],
-                        price: extraPrices[i],
-                        startingValue: extraAmounts[i],
-                        onMeatSelected: getExtraCount,
+                      return Draggable<ListItem>(
+                        dragAnchorStrategy: pointerDragAnchorStrategy,
+                        feedback: DraggingListItem(
+                          dragKey: GlobalKey(),
+                          food: extraNames[i],
+                          isTop: null,
+                        ),
+                        child: ListItem(
+                          food: extraNames[i],
+                          isTop: null,
+                          price: extraPrices[i],
+                          startingValue: extraAmounts[i],
+                          onMeatSelected: getExtraCount,
+                        ),
                       );
                     }),
               ],
