@@ -306,8 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ListView.builder(
                     itemCount: breadNames.length,
                     itemBuilder: (ctx, i) {
-                      return Draggable<ListItem>(
-                        dragAnchorStrategy: pointerDragAnchorStrategy,
+                      return LongPressDraggable<ListItem>(
                         feedback: DraggingListItem(
                           dragKey: GlobalKey(),
                           food: breadNames[i],
@@ -326,80 +325,44 @@ class _MyHomePageState extends State<MyHomePage> {
                 ListView.builder(
                     itemCount: meatNames.length,
                     itemBuilder: (ctx, i) {
-                      return Draggable<ListItem>(
-                        dragAnchorStrategy: pointerDragAnchorStrategy,
-                        feedback: DraggingListItem(
-                          dragKey: GlobalKey(),
-                          food: meatNames[i],
-                          isTop: null,
-                        ),
-                        child: ListItem(
-                          food: meatNames[i],
-                          isTop: null,
-                          price: meatPrices[i],
-                          startingValue: meatAmounts[i],
-                          onMeatSelected: getMeatCount,
-                        ),
+                      return ListItem(
+                        food: meatNames[i],
+                        price: meatPrices[i],
+                        startingValue: meatAmounts[i],
+                        onMeatSelected: getMeatCount,
                       );
                     }),
                 // Vegetables
                 ListView.builder(
                     itemCount: vegetableNames.length,
                     itemBuilder: (ctx, i) {
-                      return Draggable<ListItem>(
-                        dragAnchorStrategy: pointerDragAnchorStrategy,
-                        feedback: DraggingListItem(
-                          dragKey: GlobalKey(),
-                          food: vegetableNames[i],
-                          isTop: null,
-                        ),
-                        child: ListItem(
-                          food: vegetableNames[i],
-                          isTop: null,
-                          price: vegetablePrices[i],
-                          startingValue: vegetableAmounts[i],
-                          onMeatSelected: getVegetableCount,
-                        ),
+                      return ListItem(
+                        food: vegetableNames[i],
+                        price: vegetablePrices[i],
+                        startingValue: vegetableAmounts[i],
+                        onMeatSelected: getVegetableCount,
                       );
                     }),
                 // Vegetables
                 ListView.builder(
                     itemCount: sauceNames.length,
                     itemBuilder: (ctx, i) {
-                      return Draggable<ListItem>(
-                        dragAnchorStrategy: pointerDragAnchorStrategy,
-                        feedback: DraggingListItem(
-                          dragKey: GlobalKey(),
-                          food: sauceNames[i],
-                          isTop: null,
-                        ),
-                        child: ListItem(
-                          food: sauceNames[i],
-                          isTop: null,
-                          price: saucePrices[i],
-                          startingValue: sauceAmounts[i],
-                          onMeatSelected: getSauceCount,
-                        ),
+                      return ListItem(
+                        food: sauceNames[i],
+                        price: saucePrices[i],
+                        startingValue: sauceAmounts[i],
+                        onMeatSelected: getSauceCount,
                       );
                     }),
                 // Vegetables
                 ListView.builder(
                     itemCount: extraNames.length,
                     itemBuilder: (ctx, i) {
-                      return Draggable<ListItem>(
-                        dragAnchorStrategy: pointerDragAnchorStrategy,
-                        feedback: DraggingListItem(
-                          dragKey: GlobalKey(),
-                          food: extraNames[i],
-                          isTop: null,
-                        ),
-                        child: ListItem(
-                          food: extraNames[i],
-                          isTop: null,
-                          price: extraPrices[i],
-                          startingValue: extraAmounts[i],
-                          onMeatSelected: getExtraCount,
-                        ),
+                      return ListItem(
+                        food: extraNames[i],
+                        price: extraPrices[i],
+                        startingValue: extraAmounts[i],
+                        onMeatSelected: getExtraCount,
                       );
                     }),
               ],
