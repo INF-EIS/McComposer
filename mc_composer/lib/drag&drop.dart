@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mc_composer/basket.dart';
 import 'package:mc_composer/burgerview.dart';
 import 'package:mc_composer/listitem.dart';
 
@@ -336,7 +337,22 @@ class _DragdropPageState extends State<DragdropPage> {
                       createModal();
                     },
                     child: const Text('Show Basket')),
-                ElevatedButton(onPressed: () => {}, child: const Text('Finish'))
+                ElevatedButton(
+                    onPressed: () => {}, child: const Text('Finish')),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                    ),
+                    child: DragTarget<DraggingListItem>(
+                      builder: (context, candidateItems, rejectedItems) {
+                        return Basket(
+                          highlighted: candidateItems.isNotEmpty,
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ],
             )
           ],
