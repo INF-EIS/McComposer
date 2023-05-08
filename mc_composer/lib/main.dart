@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mc_composer/burgerview.dart';
-import 'package:mc_composer/collapsibleList.dart';
+import 'package:mc_composer/dropList.dart';
 import 'package:mc_composer/draggingListItem.dart';
 import 'package:mc_composer/listitem.dart';
 
@@ -262,76 +262,77 @@ class _MyHomePageState extends State<MyHomePage> {
                     vegetableAmounts +
                     sauceAmounts +
                     extraAmounts),
-            Row(children: [
-              TabBarView(
-                children: [
-                  // Breads
-                  ListView.builder(
-                      itemCount: breadNames.length,
-                      itemBuilder: (ctx, i) {
-                        return LongPressDraggable<ListItem>(
-                          feedback: DraggingListItem(
-                            dragKey: GlobalKey(),
-                            food: breadNames[i],
-                            isTop: null,
-                          ),
-                          child: ListItem(
+            Expanded(
+              child: Stack(children: [
+                // Breads
+                TabBarView(
+                  children: [
+                    ListView.builder(
+                        itemCount: breadNames.length,
+                        itemBuilder: (ctx, i) {
+                          return ListItem(
                             food: breadNames[i],
                             isTop: null,
                             price: breadPrices[i],
                             startingValue: breadAmounts[i],
                             onMeatSelected: getBreadCount,
-                          ),
-                        );
-                      }),
-                  // Meats
-                  ListView.builder(
-                      itemCount: meatNames.length,
-                      itemBuilder: (ctx, i) {
-                        return ListItem(
-                          food: meatNames[i],
-                          price: meatPrices[i],
-                          startingValue: meatAmounts[i],
-                          onMeatSelected: getMeatCount,
-                        );
-                      }),
-                  // Vegetables
-                  ListView.builder(
-                      itemCount: vegetableNames.length,
-                      itemBuilder: (ctx, i) {
-                        return ListItem(
-                          food: vegetableNames[i],
-                          price: vegetablePrices[i],
-                          startingValue: vegetableAmounts[i],
-                          onMeatSelected: getVegetableCount,
-                        );
-                      }),
-                  // Vegetables
-                  ListView.builder(
-                      itemCount: sauceNames.length,
-                      itemBuilder: (ctx, i) {
-                        return ListItem(
-                          food: sauceNames[i],
-                          price: saucePrices[i],
-                          startingValue: sauceAmounts[i],
-                          onMeatSelected: getSauceCount,
-                        );
-                      }),
-                  // Vegetables
-                  ListView.builder(
-                      itemCount: extraNames.length,
-                      itemBuilder: (ctx, i) {
-                        return ListItem(
-                          food: extraNames[i],
-                          price: extraPrices[i],
-                          startingValue: extraAmounts[i],
-                          onMeatSelected: getExtraCount,
-                        );
-                      }),
-                ],
-              ),
-              const Text('test')
-            ]),
+                          );
+                        }),
+                    // Meats
+                    ListView.builder(
+                        itemCount: meatNames.length,
+                        itemBuilder: (ctx, i) {
+                          return ListItem(
+                            food: meatNames[i],
+                            price: meatPrices[i],
+                            startingValue: meatAmounts[i],
+                            onMeatSelected: getMeatCount,
+                          );
+                        }),
+                    // Vegetables
+                    ListView.builder(
+                        itemCount: vegetableNames.length,
+                        itemBuilder: (ctx, i) {
+                          return ListItem(
+                            food: vegetableNames[i],
+                            price: vegetablePrices[i],
+                            startingValue: vegetableAmounts[i],
+                            onMeatSelected: getVegetableCount,
+                          );
+                        }),
+                    // Vegetables
+                    ListView.builder(
+                        itemCount: sauceNames.length,
+                        itemBuilder: (ctx, i) {
+                          return ListItem(
+                            food: sauceNames[i],
+                            price: saucePrices[i],
+                            startingValue: sauceAmounts[i],
+                            onMeatSelected: getSauceCount,
+                          );
+                        }),
+                    // Vegetables
+                    ListView.builder(
+                        itemCount: extraNames.length,
+                        itemBuilder: (ctx, i) {
+                          return ListItem(
+                            food: extraNames[i],
+                            price: extraPrices[i],
+                            startingValue: extraAmounts[i],
+                            onMeatSelected: getExtraCount,
+                          );
+                        }),
+                  ],
+                ),
+                DropList(
+                  breadAmounts: breadAmounts,
+                  extraAmounts: extraAmounts,
+                  vegetableAmounts: vegetableAmounts,
+                  meatAmounts: meatAmounts,
+                  sauceAmounts: sauceAmounts,
+                ),
+              ]),
+            ),
             ButtonBar(
               children: [
                 ElevatedButton(
