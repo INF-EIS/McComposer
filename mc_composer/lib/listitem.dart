@@ -9,13 +9,15 @@ class ListItem extends StatefulWidget {
       this.isTop,
       required this.price,
       required this.startingValue,
-      required this.onMeatSelected});
+      required this.onMeatSelected,
+      this.smallImage = false});
 
   final String food;
   final bool? isTop;
   final double price;
   final int startingValue;
   final Function(String, int) onMeatSelected;
+  final bool? smallImage;
 
   @override
   State<ListItem> createState() => _ListItemState();
@@ -43,7 +45,7 @@ class _ListItemState extends State<ListItem> {
       Padding(
           padding: const EdgeInsets.all(20.0),
           child: Image.asset(getImage(widget.food, widget.isTop),
-              width: 100, height: 100)),
+              width: widget.smallImage! ? 50 : 100, height: 100)),
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
           widget.food,
