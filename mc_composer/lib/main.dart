@@ -5,6 +5,7 @@ import 'package:mc_composer/listitem.dart';
 import 'drag&drop.dart';
 
 //TODO: fix bug -> removing items in basket does not remove in main view + price doesnt update dynamically + price 0 with start items
+//TODO: beter design switchen interactiemethodes
 
 void main() {
   runApp(const MyApp());
