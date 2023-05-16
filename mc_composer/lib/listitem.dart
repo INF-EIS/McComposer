@@ -10,14 +10,16 @@ class ListItem extends StatefulWidget {
       required this.price,
       required this.startingValue,
       required this.onMeatSelected,
-      this.smallImage = false});
+      this.smallImage = false,
+      this.draganddrop = false});
 
   final String food;
   final bool? isTop;
   final double price;
   final int startingValue;
   final Function(String, int) onMeatSelected;
-  final bool? smallImage; 
+  final bool? smallImage;
+  final bool draganddrop;
 
   @override
   State<ListItem> createState() => _ListItemState();
@@ -53,10 +55,13 @@ class _ListItemState extends State<ListItem> {
         ),
         Text('price: \$${widget.price}'),
         // const Spacer(),
-        NumStepper(
-            value: _currentValue,
-            price: widget.price,
-            onCountChanged: (int x) => widget.onMeatSelected(widget.food, x))
+        !widget.draganddrop
+            ? NumStepper(
+                value: _currentValue,
+                price: widget.price,
+                onCountChanged: (int x) =>
+                    widget.onMeatSelected(widget.food, x))
+            : Container()
       ])
     ]));
   }

@@ -6,12 +6,10 @@ class DraggingListItem extends StatelessWidget {
     super.key,
     required this.dragKey,
     required this.food,
-    this.isTop,
   });
 
   final GlobalKey dragKey;
   final String food;
-  final bool? isTop;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class DraggingListItem extends StatelessWidget {
       child: ClipRRect(
           key: dragKey,
           borderRadius: BorderRadius.circular(12.0),
-          child: Image.asset(getImage(food, isTop), width: 100, height: 100)),
+          child: Image.asset(getImage(food, null), width: 100, height: 100)),
     );
   }
 }

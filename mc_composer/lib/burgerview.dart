@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:mc_composer/statics.dart';
 import 'dart:math';
 
+import 'draggingListItem.dart';
+
 class BurgerView extends StatefulWidget {
   BurgerView(
-      {super.key, required this.breadAmounts, required this.foodAmounts});
+      {super.key,
+      required this.breadAmounts,
+      required this.foodAmounts,
+      this.highlighted = false});
 
   List<int> breadAmounts;
   List<int> foodAmounts;
+  final bool highlighted;
 
   List<int> getBreads() {
     return breadAmounts;
@@ -91,11 +97,28 @@ class _BurgerViewState extends State<BurgerView> {
     }
   }
 
+  Widget _getOverlay() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      alignment: Alignment.center,
+      color: Colors.black54,
+      child: const Text(
+        "Drop",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 40, color: Colors.white, fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: ListView(
-      children: foodStack,
-    ));
+    return Stack(children: [
+      ListView(
+        children: foodStack,
+      ),
+      widget.highlighted ? _getOverlay() : Container(),
+    ]);
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mc_composer/burgerview.dart';
-import 'package:mc_composer/dropList.dart';
 import 'package:mc_composer/draggingListItem.dart';
 import 'package:mc_composer/listitem.dart';
 import 'drag&drop.dart';
+
+//TODO: fix bug -> removing items in basket does not remove in main view + price doesnt update dynamically + price 0 with start items
 
 void main() {
   runApp(const MyApp());
@@ -284,22 +285,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ]),
           bottom: const TabBar(
             tabs: [
-              Tab(text: "bread"),
-              Tab(text: "meat"),
-              Tab(text: "vegetables"),
-              Tab(text: "sauces"),
-              Tab(text: "extra"),
+              Tab(text: "Bread"),
+              Tab(text: "Meat"),
+              Tab(text: "Vegetables"),
+              Tab(text: "Sauces"),
+              Tab(text: "Extra"),
             ],
           ),
         ),
         body: Column(
           children: [
-            BurgerView(
-                breadAmounts: breadAmounts,
-                foodAmounts: meatAmounts +
-                    vegetableAmounts +
-                    sauceAmounts +
-                    extraAmounts),
+            Expanded(
+                child: BurgerView(
+                    breadAmounts: breadAmounts,
+                    foodAmounts: meatAmounts +
+                        vegetableAmounts +
+                        sauceAmounts +
+                        extraAmounts)),
             Expanded(
               child: Stack(children: [
                 // Breads
