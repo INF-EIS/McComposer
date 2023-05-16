@@ -362,13 +362,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         }),
                   ],
                 ),
-                DropList(
-                  breadAmounts: breadAmounts,
-                  extraAmounts: extraAmounts,
-                  vegetableAmounts: vegetableAmounts,
-                  meatAmounts: meatAmounts,
-                  sauceAmounts: sauceAmounts,
-                ),
               ]),
             ),
             ButtonBar(

@@ -123,8 +123,11 @@ class _DropListState extends State<DropList> {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 1),
+            color: Colors.white),
         width: MediaQuery.of(context).size.width * 0.3,
-        color: Colors.white,
+        //color: Colors.white,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

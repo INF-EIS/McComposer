@@ -17,7 +17,7 @@ class ListItem extends StatefulWidget {
   final double price;
   final int startingValue;
   final Function(String, int) onMeatSelected;
-  final bool? smallImage;
+  final bool? smallImage; 
 
   @override
   State<ListItem> createState() => _ListItemState();
