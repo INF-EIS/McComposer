@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class NumStepper extends StatefulWidget {
-  const NumStepper({super.key, required this.value, required this.price, required this.onCountChanged});
+  const NumStepper(
+      {super.key,
+      required this.value,
+      required this.price,
+      required this.onCountChanged});
 
   final int value;
   final double price;
@@ -36,9 +40,9 @@ class _NumStepperState extends State<NumStepper> {
               widget.onCountChanged(_currentValue);
             }),
           ),
-          Text(_currentValue.toStringAsFixed(2)),
+          Text(_currentValue.toString()),
           IconButton(
-            icon: const Icon(Icons.add), 
+            icon: const Icon(Icons.add),
             onPressed: () => setState(() {
               final newValue = _currentValue + 1;
               _currentValue = newValue.clamp(0, 100);

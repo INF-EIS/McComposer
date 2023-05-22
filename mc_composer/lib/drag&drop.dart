@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mc_composer/burgerview.dart';
 import 'package:mc_composer/listitem.dart';
 import 'dragginglistitem.dart';
+import 'package:collection/collection.dart';
 
 //TODO: removing items?
 
@@ -20,7 +21,7 @@ class _DragdropPageState extends State<DragdropPage> {
 
   final List<String> breadNames = ['Bun', 'Toasted Bun', 'Brown Bun'];
   final List<double> breadPrices = [3, 5, 4];
-  List<int> breadAmounts = [1, 0, 0];
+  List<int> breadAmounts = [0, 0, 0];
 
   final List<String> meatNames = [
     'Beef Patty',
@@ -31,11 +32,11 @@ class _DragdropPageState extends State<DragdropPage> {
     '5 Chicken Nuggets'
   ];
   final List<double> meatPrices = [3, 5, 4, 4, 4, 4];
-  List<int> meatAmounts = [0, 1, 0, 0, 0, 0];
+  List<int> meatAmounts = [0, 0, 0, 0, 0, 0];
 
   final List<String> vegetableNames = ['Lettuce', 'Tomato', 'Pickles'];
   final List<double> vegetablePrices = [3, 5, 4];
-  List<int> vegetableAmounts = [1, 0, 0];
+  List<int> vegetableAmounts = [0, 0, 0];
 
   final List<String> sauceNames = ['Ketchup', 'Mayonaise', 'BBQ'];
   final List<double> saucePrices = [0.8, 0.8, 0.8];
@@ -225,13 +226,21 @@ class _DragdropPageState extends State<DragdropPage> {
             Expanded(
                 child: DragTarget<ListItem>(
               builder: (context, candidateItems, rejectedItems) {
-                return BurgerView(
-                    breadAmounts: breadAmounts,
-                    foodAmounts: meatAmounts +
-                        vegetableAmounts +
-                        sauceAmounts +
-                        extraAmounts,
-                    highlighted: candidateItems.isNotEmpty);
+                return (const ListEquality().equals(breadAmounts, [0, 0, 0]) &&
+                        candidateItems.isEmpty)
+                    ? Container(
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "Drag an item here, to make your burger!",
+                          textAlign: TextAlign.center,
+                        ))
+                    : BurgerView(
+                        breadAmounts: breadAmounts,
+                        foodAmounts: meatAmounts +
+                            vegetableAmounts +
+                            sauceAmounts +
+                            extraAmounts,
+                        highlighted: candidateItems.isNotEmpty);
               },
               onAccept: (ListItem item) {
                 item.onMeatSelected(item.food, item.startingValue + 1);
